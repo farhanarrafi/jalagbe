@@ -23,7 +23,7 @@ public class CategoryDaoImpl extends BaseDaoImpl<Category, Integer> implements C
 
 //	@SuppressWarnings("unchecked")
 //	@Override
-//	public List<Category> getCategory(String input) {
+//	public List<CategoryModel> getCategory(String input) {
 //		Session session = super.getCurrentSession();
 //		Query query = session.createQuery("FROM Categorie WHERE PARENT_ID= :data");
 //		query.setParameter("data", input);
@@ -33,7 +33,7 @@ public class CategoryDaoImpl extends BaseDaoImpl<Category, Integer> implements C
 //		finally {
 //			super.destroyCurrentSession(session);
 //		}
-//		Criteria c = session.createCriteria(Category.class);
+//		Criteria c = session.createCriteria(CategoryModel.class);
 //		c.add(Restrictions.eq("parentId", input));
 //		c.add(input == null ? Restrictions.isNull("parentId") : Restrictions.eq("parentId", input));
 //		return  c.list();

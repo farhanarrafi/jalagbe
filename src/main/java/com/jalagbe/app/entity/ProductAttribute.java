@@ -1,7 +1,5 @@
 package com.jalagbe.app.entity;
 
-import com.jalagbe.app.entity.base.BaseEntity;
-
 import javax.persistence.*;
 import java.io.Serializable;
 
@@ -11,8 +9,20 @@ import java.io.Serializable;
 
 @Entity
 @Table(name = "product_attribute" , catalog = "jalagbe_db")
-public class ProductAttribute extends BaseEntity implements Serializable {
+public class ProductAttribute implements Serializable {
 
+    @Id
+    @Column(name = "ID")
+    @SequenceGenerator(name = "product_attribute_seq", sequenceName = "product_attribute_seq", allocationSize    = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "product_attribute_seq")
+    private Long id;
+
+    @Column(name = "CREATED_ON", nullable = false)
+    private String createdOn;
+
+    @Column(name = "UPDATED_ON",  nullable = false)
+    private String updatedOn;
+    
     @ManyToOne(targetEntity=Attribute.class, fetch = FetchType.LAZY)
     @JoinColumn(name = "ATTRIBUTE_ID", nullable = false)
     private Attribute attributeId;
@@ -25,13 +35,10 @@ public class ProductAttribute extends BaseEntity implements Serializable {
         super();
     }
 
-    public ProductAttribute(Attribute attributeId, Product productId) {
-        this.attributeId = attributeId;
-        this.productId = productId;
-    }
-
     public ProductAttribute(Long id, String createdOn, String updatedOn, Attribute attributeId, Product productId) {
-        super(id, createdOn, updatedOn);
+        this.id = id;
+        this.createdOn = createdOn;
+        this.updatedOn = updatedOn;
         this.attributeId = attributeId;
         this.productId = productId;
     }
@@ -50,6 +57,30 @@ public class ProductAttribute extends BaseEntity implements Serializable {
 
     public void setProductId(Product productId) {
         this.productId = productId;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getCreatedOn() {
+        return createdOn;
+    }
+
+    public void setCreatedOn(String createdOn) {
+        this.createdOn = createdOn;
+    }
+
+    public String getUpdatedOn() {
+        return updatedOn;
+    }
+
+    public void setUpdatedOn(String updatedOn) {
+        this.updatedOn = updatedOn;
     }
 
 }

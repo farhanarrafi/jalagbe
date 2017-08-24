@@ -1,7 +1,5 @@
 package com.jalagbe.app.entity;
 
-import com.jalagbe.app.entity.base.BaseEntity;
-
 import javax.persistence.*;
 import java.io.Serializable;
 
@@ -11,8 +9,20 @@ import java.io.Serializable;
 
 @Entity
 @Table(name = "order", catalog = "jalagbe_db")
-public class Order extends BaseEntity implements Serializable {
+public class Order implements Serializable {
 
+    @Id
+    @Column(name = "ID")
+    @SequenceGenerator(name = "order_seq", sequenceName = "order_seq", allocationSize    = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "order_seq")
+    private Long id;
+
+    @Column(name = "CREATED_ON", nullable = false)
+    private String createdOn;
+
+    @Column(name = "UPDATED_ON",  nullable = false)
+    private String updatedOn;
+    
     @ManyToOne(targetEntity=User.class, fetch = FetchType.LAZY)
     @JoinColumn(name = "USER_ID")
     private User userId;
@@ -27,18 +37,13 @@ public class Order extends BaseEntity implements Serializable {
     private String status;
 
     public Order() {
-        super();
-    }
-
-    public Order(User userId, String tex, float shippingCost, String status) {
-        this.userId = userId;
-        this.tex = tex;
-        this.shippingCost = shippingCost;
-        this.status = status;
+        
     }
 
     public Order(Long id, String createdOn, String updatedOn, User userId, String tex, float shippingCost, String status) {
-        super(id, createdOn, updatedOn);
+        this.id = id;
+        this.createdOn = createdOn;
+        this.updatedOn = updatedOn;
         this.userId = userId;
         this.tex = tex;
         this.shippingCost = shippingCost;
@@ -76,4 +81,29 @@ public class Order extends BaseEntity implements Serializable {
     public void setStatus(String status) {
         this.status = status;
     }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getCreatedOn() {
+        return createdOn;
+    }
+
+    public void setCreatedOn(String createdOn) {
+        this.createdOn = createdOn;
+    }
+
+    public String getUpdatedOn() {
+        return updatedOn;
+    }
+
+    public void setUpdatedOn(String updatedOn) {
+        this.updatedOn = updatedOn;
+    }
+    
 }

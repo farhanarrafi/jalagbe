@@ -1,11 +1,7 @@
 package com.jalagbe.app.entity;
 
-import com.jalagbe.app.entity.base.BaseEntity;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Table;
-import javax.persistence.UniqueConstraint;
+import javax.persistence.*;
 import java.io.Serializable;
 
 /**
@@ -15,7 +11,19 @@ import java.io.Serializable;
 @Entity
 @Table(name = "admin", catalog = "jalagbe_db", uniqueConstraints = {
         @UniqueConstraint(columnNames = "EMAIL")})
-public class Admin  extends BaseEntity implements Serializable {
+public class Admin implements Serializable {
+
+    @Id
+    @Column(name = "ID")
+    @SequenceGenerator(name = "admin_seq", sequenceName = "admin_seq", allocationSize    = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "admin_seq")
+    private Long id;
+
+    @Column(name = "CREATED_ON", nullable = false)
+    private String createdOn;
+
+    @Column(name = "UPDATED_ON",  nullable = false)
+    private String updatedOn;
 
     @Column(name = "NAME", nullable = false)
     private String name;
@@ -36,16 +44,10 @@ public class Admin  extends BaseEntity implements Serializable {
         super();
     }
 
-    public Admin(String name, String email, String password, int type, int status) {
-        this.name = name;
-        this.email = email;
-        this.password = password;
-        this.type = type;
-        this.status = status;
-    }
-
     public Admin(Long id, String createdOn, String updatedOn, String name, String email, String password, int type, int status) {
-        super(id, createdOn, updatedOn);
+        this.id = id;
+        this.createdOn = createdOn;
+        this.updatedOn = updatedOn;
         this.name = name;
         this.email = email;
         this.password = password;
@@ -93,4 +95,27 @@ public class Admin  extends BaseEntity implements Serializable {
         this.status = status;
     }
 
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getCreatedOn() {
+        return createdOn;
+    }
+
+    public void setCreatedOn(String createdOn) {
+        this.createdOn = createdOn;
+    }
+
+    public String getUpdatedOn() {
+        return updatedOn;
+    }
+
+    public void setUpdatedOn(String updatedOn) {
+        this.updatedOn = updatedOn;
+    }
 }

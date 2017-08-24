@@ -1,11 +1,6 @@
 package com.jalagbe.app.entity;
 
-import com.jalagbe.app.entity.base.BaseEntity;
-
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Table;
-import javax.persistence.UniqueConstraint;
+import javax.persistence.*;
 import java.io.Serializable;
 
 /**
@@ -14,7 +9,19 @@ import java.io.Serializable;
 
 @Entity
 @Table(name = "attribute", catalog = "jalagbe_db")
-public class Attribute extends BaseEntity implements Serializable {
+public class Attribute implements Serializable {
+
+    @Id
+    @Column(name = "ID")
+    @SequenceGenerator(name = "attribute_seq", sequenceName = "attribute_seq", allocationSize    = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "attribute_seq")
+    private Long id;
+
+    @Column(name = "CREATED_ON", nullable = false)
+    private String createdOn;
+
+    @Column(name = "UPDATED_ON",  nullable = false)
+    private String updatedOn;
 
     @Column(name = "NAME", nullable = false)
     private String name;
@@ -26,13 +33,10 @@ public class Attribute extends BaseEntity implements Serializable {
         super();
     }
 
-    public Attribute(String name, String type) {
-        this.name = name;
-        this.type = type;
-    }
-
     public Attribute(Long id, String createdOn, String updatedOn, String name, String type) {
-        super(id, createdOn, updatedOn);
+        this.id = id;
+        this.createdOn = createdOn;
+        this.updatedOn = updatedOn;
         this.name = name;
         this.type = type;
     }
@@ -51,5 +55,29 @@ public class Attribute extends BaseEntity implements Serializable {
 
     public void setType(String type) {
         this.type = type;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getCreatedOn() {
+        return createdOn;
+    }
+
+    public void setCreatedOn(String createdOn) {
+        this.createdOn = createdOn;
+    }
+
+    public String getUpdatedOn() {
+        return updatedOn;
+    }
+
+    public void setUpdatedOn(String updatedOn) {
+        this.updatedOn = updatedOn;
     }
 }

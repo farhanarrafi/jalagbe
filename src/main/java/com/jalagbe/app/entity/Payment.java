@@ -1,7 +1,5 @@
 package com.jalagbe.app.entity;
 
-import com.jalagbe.app.entity.base.BaseEntity;
-
 import javax.persistence.*;
 import java.io.Serializable;
 
@@ -10,8 +8,20 @@ import java.io.Serializable;
  */
 @Entity
 @Table(name = "payment", catalog = "jalagbe_db")
-public class Payment extends BaseEntity implements Serializable {
+public class Payment implements Serializable {
 
+    @Id
+    @Column(name = "ID")
+    @SequenceGenerator(name = "payment_seq", sequenceName = "payment_seq", allocationSize    = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "payment_seq")
+    private Long id;
+
+    @Column(name = "CREATED_ON", nullable = false)
+    private String createdOn;
+
+    @Column(name = "UPDATED_ON",  nullable = false)
+    private String updatedOn;
+    
     @OneToOne(targetEntity=Order.class, fetch = FetchType.LAZY)
     @JoinColumn(name = "ORDER_ID")
     private Order orderId;
@@ -29,19 +39,13 @@ public class Payment extends BaseEntity implements Serializable {
     private String status;
 
     public Payment() {
-        super();
-    }
 
-    public Payment(Order orderId, float amount, String transactionId, String method, String status) {
-        this.orderId = orderId;
-        this.amount = amount;
-        this.transactionId = transactionId;
-        this.method = method;
-        this.status = status;
     }
 
     public Payment(Long id, String createdOn, String updatedOn, Order orderId, float amount, String transactionId, String method, String status) {
-        super(id, createdOn, updatedOn);
+        this.id = id;
+        this.createdOn = createdOn;
+        this.updatedOn = updatedOn;
         this.orderId = orderId;
         this.amount = amount;
         this.transactionId = transactionId;
@@ -87,5 +91,29 @@ public class Payment extends BaseEntity implements Serializable {
 
     public void setStatus(String status) {
         this.status = status;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getCreatedOn() {
+        return createdOn;
+    }
+
+    public void setCreatedOn(String createdOn) {
+        this.createdOn = createdOn;
+    }
+
+    public String getUpdatedOn() {
+        return updatedOn;
+    }
+
+    public void setUpdatedOn(String updatedOn) {
+        this.updatedOn = updatedOn;
     }
 }

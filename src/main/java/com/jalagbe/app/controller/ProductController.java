@@ -26,7 +26,7 @@ public class ProductController {
     @RequestMapping(value = "/add", method = {RequestMethod.POST, RequestMethod.GET})
     public String newProduct() {
 
-        return "upload-product";
+        return "upload-category";
     }
 
     @RequestMapping(value = "/delete/{productId:[0-9]+}{slug:.*}", method = RequestMethod.DELETE)
