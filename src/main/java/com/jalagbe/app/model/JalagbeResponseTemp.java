@@ -2,7 +2,7 @@ package com.jalagbe.app.model;
 
 import java.util.Map;
 
-public class JalagbeResponse<T> {
+public class JalagbeResponseTemp<T> {
     private T responseModel;
     private int responseCode;
     private Map<String, ?> responseBody;

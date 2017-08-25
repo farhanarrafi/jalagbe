@@ -1,0 +1,92 @@
+
+<body>
+	<script>
+		var $imageupload = $('.imageupload');
+		$imageupload.imageupload();
+
+
+		$(".reset").click(function() {
+			document.getElementById("contact").reset();
+		});
+
+        $(document).ready(function () {
+            $("#btnSubmit").click(function (event) {
+                event.preventDefault();
+                fire_ajax_submit();
+            });
+        });
+
+        function fire_ajax_submit() {
+            var data = new FormData($("#fileUploadForm")[0]);
+
+            $.ajax({
+                type: "POST",
+                enctype: 'multipart/form-data',
+                url: "/category/save",
+                data: data,
+                processData: false,
+                contentType: false,
+                cache: false,
+                timeout: 600000,
+                success: function (data) {
+
+                    $("#result").text(data);
+                    console.log("SUCCESS : ", data);
+
+                },
+                error: function (e) {
+
+                    $("#result").text(e.responseText);
+                    console.log("ERROR : ", e);
+
+                }
+            });
+        }
+	</script>
+
+	<div class="container">
+		<p id="feedback"></p>
+        <pre>
+            <span id="result"></span>
+        </pre>
+        <form method="post" enctype="multipart/form-data" id="fileUploadForm">
+            <input type="text" name="extraField"/><br/><br/>
+            <input type="file" name="files"/><br/><br/>
+            <input type="file" name="files"/><br/><br/>
+            <input type="submit" value="Submit" id="btnSubmit"/>
+        </form>
+	    <!--<%&#45;&#45;<form action="/category/save" id="contact" method="post" enctype="multipart/form-data">&#45;&#45;%>-->
+			<!--<%&#45;&#45;<h3>Upload a new cetagorie</h3>&#45;&#45;%>-->
+			<!--<%&#45;&#45;<fieldset>&#45;&#45;%>-->
+				<!--<%&#45;&#45;<input class="form-control" placeholder="Cetagorie name" name="categoryName" type="text" required>&#45;&#45;%>-->
+			<!--<%&#45;&#45;</fieldset>&#45;&#45;%>-->
+			<!--<%&#45;&#45;<fieldset>&#45;&#45;%>-->
+				<!--<%&#45;&#45;<label >Select gender</label>&#45;&#45;%>-->
+				  <!--<%&#45;&#45;&lt;%&ndash;<select class="form-control" name="gender" required>&ndash;%&gt;&#45;&#45;%>-->
+					<!--<%&#45;&#45;&lt;%&ndash;<option value="Male">Male</option>&ndash;%&gt;&#45;&#45;%>-->
+					<!--<%&#45;&#45;&lt;%&ndash;<option value="Female">Female</option>&ndash;%&gt;&#45;&#45;%>-->
+				  <!--<%&#45;&#45;&lt;%&ndash;</select>&ndash;%&gt;&#45;&#45;%>-->
+			<!--<%&#45;&#45;</fieldset>&#45;&#45;%>-->
+			<!--<%&#45;&#45;<div class="imageupload panel panel-default">&#45;&#45;%>-->
+				<!--<%&#45;&#45;<div class="panel-heading clearfix">&#45;&#45;%>-->
+					<!--<%&#45;&#45;<h6 class="panel-title pull-left">Upload Image</h6>&#45;&#45;%>-->
+				<!--<%&#45;&#45;</div>&#45;&#45;%>-->
+				<!--<%&#45;&#45;<div class="file-tab panel-body">&#45;&#45;%>-->
+					<!--<%&#45;&#45;<label class="btn btn-default btn-file">&#45;&#45;%>-->
+						<!--<%&#45;&#45;<span>Browse</span>&#45;&#45;%>-->
+						<!--<%&#45;&#45;&lt;!&ndash; The file is stored here. &ndash;&gt;&#45;&#45;%>-->
+						<!--<%&#45;&#45;<input type="file" name="files">&#45;&#45;%>-->
+					<!--<%&#45;&#45;</label>&#45;&#45;%>-->
+					<!--<%&#45;&#45;<button type="button" class="btn btn-default">Remove</button>&#45;&#45;%>-->
+				<!--<%&#45;&#45;</div>&#45;&#45;%>-->
+			<!--<%&#45;&#45;</div>&#45;&#45;%>-->
+			<!--<%&#45;&#45;<fieldset>&#45;&#45;%>-->
+				<!--<%&#45;&#45;<button name="submit" type="submit" id="submit" data-submit="...Sending" >Submit</button>&#45;&#45;%>-->
+			<!--<%&#45;&#45;</fieldset>&#45;&#45;%>-->
+			<!--<%&#45;&#45;<fieldset>&#45;&#45;%>-->
+				<!--<%&#45;&#45;<button name="submit" type="reset" id="reset" >Reset</button>&#45;&#45;%>-->
+			<!--<%&#45;&#45;</fieldset>&#45;&#45;%>-->
+			<!--<%&#45;&#45;<p class="copyright">Designed by <a href="https://whiteconsole.com" target="_blank" title="WhiteConsole">WhiteConsole</a></p>&#45;&#45;%>-->
+		<!--<%&#45;&#45;</form>&#45;&#45;%>-->
+	</div>
+</body>

@@ -7,9 +7,10 @@ import java.io.Serializable;
 @Table(name = "user", catalog = "jalagbe_db")
 public class User implements Serializable{
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "ID", unique = true, nullable = false)
+	@Id
+	@Column(name = "ID")
+	@SequenceGenerator(name = "user_seq", sequenceName = "user_seq", allocationSize    = 1)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "user_seq")
 	private Integer id;
 
     @Column(name = "FIRST_NAME", nullable = false)

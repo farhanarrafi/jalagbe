@@ -1,7 +1,5 @@
 package com.jalagbe.app.entity;
 
-import com.jalagbe.app.entity.base.BaseEntity;
-
 import javax.persistence.*;
 import java.io.Serializable;
 
@@ -11,8 +9,20 @@ import java.io.Serializable;
 
 @Entity
 @Table(name = "ranking", catalog = "jalagbe_db")
-public class Ranking extends BaseEntity implements Serializable {
+public class Ranking implements Serializable {
 
+    @Id
+    @Column(name = "ID")
+    @SequenceGenerator(name = "ranking_seq", sequenceName = "ranking_seq", allocationSize    = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "ranking_seq")
+    private Long id;
+
+    @Column(name = "CREATED_ON", nullable = false)
+    private String createdOn;
+
+    @Column(name = "UPDATED_ON",  nullable = false)
+    private String updatedOn;
+    
     @ManyToOne(targetEntity=Product.class, fetch = FetchType.LAZY)
     @JoinColumn(name = "PRODUCT_ID", nullable = false)
     private Product productId;
@@ -28,14 +38,10 @@ public class Ranking extends BaseEntity implements Serializable {
         super();
     }
 
-    public Ranking(Product productId, User userId, float rate) {
-        this.productId = productId;
-        this.userId = userId;
-        this.rate = rate;
-    }
-
     public Ranking(Long id, String createdOn, String updatedOn, Product productId, User userId, float rate) {
-        super(id, createdOn, updatedOn);
+        this.id = id;
+        this.createdOn = createdOn;
+        this.updatedOn = updatedOn;
         this.productId = productId;
         this.userId = userId;
         this.rate = rate;
@@ -63,6 +69,30 @@ public class Ranking extends BaseEntity implements Serializable {
 
     public void setRate(float rate) {
         this.rate = rate;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getCreatedOn() {
+        return createdOn;
+    }
+
+    public void setCreatedOn(String createdOn) {
+        this.createdOn = createdOn;
+    }
+
+    public String getUpdatedOn() {
+        return updatedOn;
+    }
+
+    public void setUpdatedOn(String updatedOn) {
+        this.updatedOn = updatedOn;
     }
 
 }
