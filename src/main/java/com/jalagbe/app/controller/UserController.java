@@ -1,11 +1,13 @@
 package com.jalagbe.app.controller;
 
+import com.jalagbe.app.entity.User;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.servlet.ModelAndView;
 
 /**
  * Created by tareq rahman on 8/18/2017.
@@ -17,45 +19,37 @@ public class UserController {
 
     @RequestMapping(value = "")
     public String execute() {
-        ModelAndView model = new ModelAndView("temp");
-        model.addObject("msg", "hello world");
-
+        //return User
         return "index";
     }
 
-    @RequestMapping(value = "login", method = RequestMethod.POST)
-    public String userLogin() {
-        ModelAndView model = new ModelAndView("temp");
-        model.addObject("msg", "hello world");
+    //admin part
 
-        return "admin";
+    @RequestMapping(value = "/add", method = {RequestMethod.GET})
+    public String loadNewUser() {
+        return "upload-User";
     }
 
-    @RequestMapping(value = "/add", method = RequestMethod.POST)
-    public String newUser() {
-        ModelAndView model = new ModelAndView("temp");
-        model.addObject("msg", "hello world");
+    @RequestMapping(value = "/update/{userId:[0-9]+}{slug:.*}", method = RequestMethod.GET)
+    public String loadUpdateUser(@PathVariable("userId") long userId) {
+        return "upload-User";
+    }
 
-        return "admin";
+    @RequestMapping(value = "/save", method = RequestMethod.POST)
+    public ResponseEntity<?> multiUploadFileModel(@RequestBody User model) {
+
+        return new ResponseEntity("Successfully uploaded!", HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "/update", method = RequestMethod.POST)
+    public ResponseEntity<?> updateUser(@RequestBody User model) {
+
+        return new ResponseEntity("Successfully uploaded!", HttpStatus.OK);
     }
 
     @RequestMapping(value = "/delete/{userId:[0-9]+}{slug:.*}", method = RequestMethod.DELETE)
-    public String deleteUser(@PathVariable("userId") long userId) {
-        ModelAndView model = new ModelAndView("temp");
-        model.addObject("msg", "hello world");
+    public ResponseEntity<?> deleteUser(@PathVariable("userId") long userId) {
 
-        return "admin";
-    }
-
-    @RequestMapping(value = "/update/{userId:[0-9]+}{slug:.*}", method = RequestMethod.PUT)
-    public String updateUserIdInfo(Model model, @PathVariable("userId") long userId) {
-
-        return "admin";
-    }
-
-    @RequestMapping(value = "/adminlist", method = RequestMethod.PUT)
-    public String getAllUser() {
-
-        return "admin";
+        return new ResponseEntity("Successfully uploaded!", HttpStatus.OK);
     }
 }

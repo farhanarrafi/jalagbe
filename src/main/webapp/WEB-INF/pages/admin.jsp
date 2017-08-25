@@ -1,16 +1,14 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+		 pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jstl/core" prefix="c"%>
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html>
 	<head>
 		<meta http-equiv="content-type" content="text/html; charset=utf-8"/>
 		<meta charset="UTF-8"/>
         <meta name="viewport" content="width=device-width, initial-scale=1"/>
 
 		<link rel='stylesheet' type='text/css' href='//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css'/>
-		
-		<!--<%&#45;&#45;<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>&#45;&#45;%>-->
-		<!--<%&#45;&#45;<script src="https://code.jquery.com/jquery-1.12.4.min.js" integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ="crossorigin="anonymous"></script>&#45;&#45;%>-->
-		<!--<%&#45;&#45;<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/js/bootstrap-datepicker.min.js"></script>&#45;&#45;%>-->
-		<!--<%&#45;&#45;&#45;&#45;%>-->
 
 		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/css/bootstrap-datepicker3.css"/>
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous"/>
@@ -18,67 +16,22 @@
 		<!-- Optional theme -->
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous"/>
 
-		<!-- Latest compiled and minified JavaScript -->
 		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 		<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
-		<!---->
-		<!--<%&#45;&#45;<link href="../static-resources/css/admin.css" rel="stylesheet">&#45;&#45;%>-->
-		<!--<%&#45;&#45;<link href="../static-resources/css/bootstrap-imageupload.css" rel="stylesheet">&#45;&#45;%>-->
-		<!---->
-		<!--<%&#45;&#45;<script src="../static-resources/js/bootstrap-imageupload.js"></script>&#45;&#45;%>-->
 
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+
+		<script type="text/javascript"
+				src="<c:url value='/resources/js/bootstrap-imageupload.js'/>"></script>
+
         <script type="text/javascript"
-                src="/resources/lib/jquery-2.2.4.jar"></script>
+                src="<c:url value='/resources/js/jalagbe.js'/>"></script>
 
-		<link href="/resources/css/admin.css" rel="stylesheet"/>
-        <link href="/resources/css/bootstrap-imageupload.css" rel="stylesheet"/>
+		<link href="<c:url value='/resources/css/admin.css'/>"
+			  rel="stylesheet">
+		<link href="<c:url value='/resources/css/bootstrap-imageupload.css'/>"
+			  rel="stylesheet">
 
-        <script type="text/javascript" src="/resources/js/bootstrap-imageupload.js"></script>
-		<style>
-			
-			
-		</style>
-		
-		<script type="text/javascript">
-
-
-            function load_cetagorie_list() {
-                $('#main-body-admin').load('');
-            }
-
-            function load_upload_cetagorie() {
-                $('#main-body-admin').load('/category/add');
-            }
-
-            function load_product_list() {
-                $('#main-body-admin').load('/pages/temp.jsp');
-            }
-			function load_upload_product() {
-				$('#main-body-admin').load('/product/add');
-			}
-
-            function load_story_list() {
-                $('#main-body-admin').load('temp.jsp');
-            }
-			function load_upload_story() {
-				$('#main-body-admin').load('upload-story.jsp');
-			}
-			function edit_cetagorie() {
-				var id = $(this).attr("value");
-				var url = //'edit-cetagorie.php?id='+id;
-				$("#main-body-admin").load(url);
-				return true;
-			}
-			
-			$("#cetagorie-data a").click(function() {
-			    var id = $(this).attr("value");
-				var url = //'products.php?id='+id;
-				$("#main-body-admin").load(url);
-			    return false;
-			});
-
-		</script>
 	</head>
 	<body>
 		<div class="row">
@@ -97,12 +50,12 @@
 							<h5>CETAGORIE</h5>
 							<ul class="sidebar-sub-ul">
 								<li>
-									<a href ="#" onclick="load_cetagorie_list()">
+									<a href ="#" onclick="load_category_list()">
 										Show Cetagorie list
 									</a>
 								</li>
 								<li >
-									<a href ="#" onclick="load_upload_cetagorie()">
+									<a href ="#" onclick="load_upload_category()">
 										Upload categorie
 									</a>	
 								</li>
@@ -165,8 +118,5 @@
 				</div>
 			</div>
 		</div>
-		
-		
-
 	</body>
 </html>

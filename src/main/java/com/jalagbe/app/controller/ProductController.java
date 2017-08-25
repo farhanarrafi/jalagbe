@@ -1,51 +1,55 @@
 package com.jalagbe.app.controller;
 
+import com.jalagbe.app.model.ProductModel;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.servlet.ModelAndView;
 
 /**
  * Created by tareq rahman on 8/18/2017.
  */
 
 @Controller
-@RequestMapping(value = "product")
+@RequestMapping(value = "/product")
 public class ProductController {
 
     @RequestMapping(value = "")
     public String execute() {
-        ModelAndView model = new ModelAndView("temp");
-        model.addObject("msg", "hello world");
-
+        //return Product
         return "index";
     }
 
-    @RequestMapping(value = "/add", method = {RequestMethod.POST, RequestMethod.GET})
-    public String newProduct() {
+    //admin part
 
-        return "upload-category";
+    @RequestMapping(value = "/add", method = {RequestMethod.GET})
+    public String loadNewProduct() {
+        return "upload-product";
+    }
+
+    @RequestMapping(value = "/update/{productId:[0-9]+}{slug:.*}", method = RequestMethod.GET)
+    public String loadUpdateProduct(@PathVariable("productId") long productId) {
+        return "upload-Product";
+    }
+
+    @RequestMapping(value = "/save", method = RequestMethod.POST)
+    public ResponseEntity<?> multiUploadFileModel(@ModelAttribute ProductModel model) {
+
+        return new ResponseEntity("Successfully uploaded!", HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "/update", method = RequestMethod.POST)
+    public ResponseEntity<?> updateProduct(@ModelAttribute ProductModel model) {
+
+        return new ResponseEntity("Successfully uploaded!", HttpStatus.OK);
     }
 
     @RequestMapping(value = "/delete/{productId:[0-9]+}{slug:.*}", method = RequestMethod.DELETE)
-    public String deleteProduct(@PathVariable("productId") long productId) {
-        ModelAndView model = new ModelAndView("temp");
-        model.addObject("msg", "hello world");
+    public ResponseEntity<?> deleteProduct(@PathVariable("productId") long productId) {
 
-        return "admin";
-    }
-
-    @RequestMapping(value = "/update/{productId:[0-9]+}{slug:.*}", method = RequestMethod.PUT)
-    public String updateProduct(Model model, @PathVariable("productId") long productId) {
-
-        return "admin";
-    }
-
-    @RequestMapping(value = "/productlist", method = RequestMethod.PUT)
-    public String getAllProduct() {
-
-        return "admin";
+        return new ResponseEntity("Successfully uploaded!", HttpStatus.OK);
     }
 }
