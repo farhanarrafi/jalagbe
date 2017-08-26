@@ -1,7 +1,17 @@
 package com.jalagbe.app.validator;
 
+import com.jalagbe.app.constant.JalagbeConstant;
+import com.jalagbe.app.entity.CategoryImage;
 import org.springframework.stereotype.Component;
+import org.springframework.web.multipart.MultipartFile;
 
+import javax.activation.MimetypesFileTypeMap;
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -86,6 +96,32 @@ public class JalagbeValidator {
             return password.matches(regex);
         }
         return false;
+    }
+
+    public boolean isValidImage(List<MultipartFile> multipartFiles) {
+        for (MultipartFile multipartFile : multipartFiles) {
+
+            if (multipartFile.isEmpty()) {
+                return false;
+            }
+
+            String fileName = multipartFile.getOriginalFilename();
+            if(isValidImageExtension(fileName)) {
+                File file = new File(fileName);
+                String mimetype= new MimetypesFileTypeMap().getContentType(file);
+                String type = mimetype.split("/")[0];
+                if(type.equals("image")) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    private boolean isValidImageExtension(String imageName) {
+        Pattern pattern  = Pattern.compile("([^\\s]+(\\.(?i)(jpg|png|gif|bmp))$)");
+        Matcher  matcher = pattern.matcher(imageName);
+        return matcher.matches();
     }
 
 }

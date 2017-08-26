@@ -7,6 +7,8 @@ import org.springframework.validation.Errors;
 import org.springframework.validation.ValidationUtils;
 import org.springframework.validation.Validator;
 
+import java.util.Arrays;
+
 /**
  * Created by rahma on 8/22/2017.
  */
@@ -28,6 +30,10 @@ public class CategoryValidator implements Validator {
 
         if(!jalagbeValidator.isValidString(categoryModel.getCategoryName())){
             errors.rejectValue("categoryName", "NotEmpty.category.name.category");
+        }
+
+        if(!jalagbeValidator.isValidImage(Arrays.asList(categoryModel.getFiles()))) {
+            errors.rejectValue("image", "NotEmpty.category.name.image");
         }
     }
 }

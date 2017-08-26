@@ -42,17 +42,16 @@ public class BaseDaoImpl<T, PK extends Serializable> extends HibernateTemplate  
 		session = getCurrentSession();	
 		transaction = session.beginTransaction();
 		try {
-			if((Integer) session.save(object) == 1) {
-                transaction.commit();
-                return true;
-            }
+            session.save(object);
+            transaction.commit();
+            return true;
 		} catch (Exception e) {
+			e.printStackTrace();
 			transaction.rollback();
+            return false;
 		} finally {
 			session.close();
 		}
-
-        return false;
 	}
 
 	@SuppressWarnings("unchecked")

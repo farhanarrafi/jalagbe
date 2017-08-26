@@ -10,8 +10,11 @@ import java.util.Map;
  */
 public interface BaseAction<T> {
 
+    boolean executeUpdate(T model);
+
+    boolean executeInsert(T model);
+
+    boolean executeDelete(long id);
+
     Map<String, ?> execute();
-
-    JalagbeResponse execute(T model, HttpServletRequest request);
-
 }

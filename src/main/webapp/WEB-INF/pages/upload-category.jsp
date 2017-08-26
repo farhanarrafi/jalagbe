@@ -29,7 +29,7 @@
                 success: function (data) {
                     //alert(data)
                     console.log("SUCCESS : ", data);
-                    if(confirm("Do you wan't to upload another category?")){
+                    if(confirm(data + "\n\nDo you wan't to upload another one?")){
                         $('#main-body-admin').load('/category/add');
                     } else {
                         document.getElementById("contact").reset(); // temporary
@@ -38,7 +38,7 @@
 
                 },
                 error: function (e) {
-                    alert(e);
+                    alert(e.responseText);
                     //$("#result").text(e.responseText);
                     console.log("ERROR : ", e);
 

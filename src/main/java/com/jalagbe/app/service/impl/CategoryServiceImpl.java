@@ -15,14 +15,13 @@ public class CategoryServiceImpl implements CategoryService {
 	@Autowired
 	private CategoryDao categoryDao;
 
-
 	public List<Category> getCategory(String input) {
 		return null;
 	}
 
 	@Override
-	public boolean save(Category object) {
-		return false;
+	public boolean save(Category object)  throws Exception{
+		return categoryDao.insert(object);
 	}
 
 	@Override

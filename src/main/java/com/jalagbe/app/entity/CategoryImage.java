@@ -33,7 +33,7 @@ public class CategoryImage implements Serializable {
     @Column(name = "FILE_NAME", unique = true, nullable = false)
     private String fileName;
 
-    @Column(name = "ORIGINAL_NAME", nullable = false)
+    @Column(name = "ORIGINAL_NAME")
     private String originalName;
 
     public CategoryImage() {

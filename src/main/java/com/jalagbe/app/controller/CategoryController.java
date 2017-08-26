@@ -2,7 +2,6 @@ package com.jalagbe.app.controller;
 
 import com.jalagbe.app.action.CategoryAction;
 import com.jalagbe.app.model.CategoryModel;
-import com.jalagbe.app.service.CategoryService;
 import com.jalagbe.app.validator.CategoryValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -11,7 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpServletRequest;
+import javax.validation.Valid;
 
 /**
  * Created by tareq rahman on 8/18/2017.
@@ -51,9 +50,14 @@ public class CategoryController {
     }
 
     @RequestMapping(value = "/save", method = RequestMethod.POST)
-    public ResponseEntity<?> saveNewCategory(@ModelAttribute CategoryModel categoryModel, HttpServletRequest request) {
-        categoryAction.execute(categoryModel, request);
-        return new ResponseEntity("Successfully uploaded!", HttpStatus.OK);
+    public ResponseEntity<?> saveNewCategory(@Valid @ModelAttribute CategoryModel categoryModel) {
+        ResponseEntity responseEntity;
+        if(categoryAction.executeInsert(categoryModel)) {
+            responseEntity = new ResponseEntity("Inserted successful", HttpStatus.OK);
+        } else {
+            responseEntity = new ResponseEntity("Internal server error!", HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+        return responseEntity;
     }
 
     @RequestMapping(value = "/update", method = RequestMethod.POST)

@@ -1,13 +1,14 @@
 package com.jalagbe.app.model;
 
 import com.fasterxml.jackson.annotation.JsonView;
+import org.springframework.http.HttpStatus;
 
 public class JalagbeResponse {
     @JsonView(Views.Public.class)
     String body;
 
     @JsonView(Views.Public.class)
-    int status;
+    HttpStatus status;
 
     public String getBody() {
         return body;
@@ -17,11 +18,11 @@ public class JalagbeResponse {
         this.body = body;
     }
 
-    public int getStatus() {
+    public HttpStatus getStatus() {
         return status;
     }
 
-    public void setStatus(int status) {
+    public void setStatus(HttpStatus status) {
         this.status = status;
     }
 }
