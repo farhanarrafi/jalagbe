@@ -32,6 +32,37 @@
 		<link href="<c:url value='/resources/css/bootstrap-imageupload.css'/>"
 			  rel="stylesheet">
 
+		<script>
+            function load_category_list() {
+                $('#main-body-admin').load('');
+            }
+
+            function load_upload_category() {
+                $('#main-body-admin').load('/category/add');
+            }
+
+            function load_product_list() {
+                $('#main-body-admin').load('/pages/temp.jsp');
+            }
+            function load_upload_product() {
+                $('#main-body-admin').load('/product/add');
+            }
+
+            function load_story_list() {
+                $('#main-body-admin').load('temp.jsp');
+            }
+            function load_upload_story() {
+                $('#main-body-admin').load('upload-story.jsp');
+            }
+            function edit_cetagorie() {
+                var id = $(this).attr("value");
+                var url = //'edit-cetagorie.php?id='+id;
+                    $("#main-body-admin").load(url);
+                return true;
+            }
+
+		</script>
+
 	</head>
 	<body>
 		<div class="row">

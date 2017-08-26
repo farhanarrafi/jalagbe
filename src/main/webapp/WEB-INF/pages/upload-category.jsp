@@ -60,18 +60,21 @@
 					<%--<option value="Female">Female</option>--%>
 				  <%--</select>--%>
 			<%--</fieldset>--%>
-			<div class="imageupload panel panel-default">
-				<div class="panel-heading clearfix">
-					<h6 class="panel-title pull-left">Upload Image</h6>
-				</div>
-				<div class="file-tab panel-body">
-					<label class="btn btn-default btn-file">
-						<span>Browse</span>
-						<input type="file" name="files">
-					</label>
-					<button type="button" class="btn btn-default">Remove</button>
-				</div>
-			</div>
+			<%--<div class="imageupload panel panel-default">--%>
+				<%--<div class="panel-heading clearfix">--%>
+					<%--<h6 class="panel-title pull-left">Upload Image</h6>--%>
+				<%--</div>--%>
+				<%--<div class="file-tab panel-body">--%>
+					<%--<label class="btn btn-default btn-file">--%>
+						<%--<span>Browse</span>--%>
+						<%--<input type="file" name="files">--%>
+					<%--</label>--%>
+					<%--<button type="button" class="btn btn-default">Remove</button>--%>
+				<%--</div>--%>
+			<%--</div>--%>
+			<fieldset>
+				<input type="file" name="files" multiple>
+			</fieldset>
 			<fieldset>
 				<button name="submit" type="submit" id="btnSubmit" data-submit="...Sending" >Submit</button>
 			</fieldset>

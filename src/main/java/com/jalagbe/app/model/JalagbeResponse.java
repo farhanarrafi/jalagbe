@@ -1,61 +1,27 @@
 package com.jalagbe.app.model;
 
-import java.util.Map;
+import com.fasterxml.jackson.annotation.JsonView;
 
-public class JalagbeResponse<T> {
-    private T responseModel;
-    private int responseCode;
-    private Map<String, ?> responseBody;
-    private Map<String, ?> responseHeader;
-    private String contentType;
-    private String responseString;
-    
+public class JalagbeResponse {
+    @JsonView(Views.Public.class)
+    String body;
 
-    public String getResponseString() {
-		return responseString;
-	}
+    @JsonView(Views.Public.class)
+    int status;
 
-	public void setResponseString(String responseString) {
-		this.responseString = responseString;
-	}
-
-	public T getResponseModel() {
-        return responseModel;
+    public String getBody() {
+        return body;
     }
 
-    public void setResponseModel(T responseModel) {
-        this.responseModel = responseModel;
+    public void setBody(String body) {
+        this.body = body;
     }
 
-    public int getResponseCode() {
-        return responseCode;
+    public int getStatus() {
+        return status;
     }
 
-    public void setResponseCode(int responseCode) {
-        this.responseCode = responseCode;
-    }
-
-    public Map<String, ?> getResponseBody() {
-		return responseBody;
-	}
-
-	public void setResponseBody(Map<String, ?> responseBody) {
-		this.responseBody = responseBody;
-	}
-
-	public Map<String, ?> getResponseHeader() {
-        return responseHeader;
-    }
-
-    public void setResponseHeader(Map<String, ?> responseHeader) {
-        this.responseHeader = responseHeader;
-    }
-
-    public String getContentType() {
-        return contentType;
-    }
-
-    public void setContentType(String contentType) {
-        this.contentType = contentType;
+    public void setStatus(int status) {
+        this.status = status;
     }
 }

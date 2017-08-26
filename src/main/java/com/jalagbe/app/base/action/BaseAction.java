@@ -2,6 +2,7 @@ package com.jalagbe.app.base.action;
 
 import com.jalagbe.app.model.JalagbeResponse;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.Map;
 
 /**
@@ -11,6 +12,6 @@ public interface BaseAction<T> {
 
     Map<String, ?> execute();
 
-    JalagbeResponse execute(T model);
+    JalagbeResponse execute(T model, HttpServletRequest request);
 
 }

@@ -10,4 +10,5 @@ public abstract class AbstractBaseAction {
     protected abstract Map<String, ?> processResponse(Object object);
 
     protected abstract boolean validateRequestParams(Object object);
+
 }

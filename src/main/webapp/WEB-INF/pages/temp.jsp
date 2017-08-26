@@ -7,7 +7,7 @@
 --%>
 
 <div>
-    <p>dfhdsfilhfipr;r</p>
+    Welcome to jalagbe platform
 </div>
 
 

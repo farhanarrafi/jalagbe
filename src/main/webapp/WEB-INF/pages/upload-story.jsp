@@ -29,7 +29,7 @@
 				contentType: false,
 				processData: false,
 				success: function(html){
-					$('#msg').html(html);
+					$('#body').html(html);
 				}
 			});
 			return false;
@@ -49,7 +49,7 @@
 	</script>
 
 	<div class="container">  
-		<p id="msg"></p>
+		<p id="body"></p>
 	    <form id="contact" method="post">
 			<h3>Upload a new story</h3>
 			<fieldset>

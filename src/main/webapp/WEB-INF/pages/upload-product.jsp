@@ -50,7 +50,7 @@
 	</script>
 
 	<div class="container">  
-		<p id="msg"></p>
+		<p id="body"></p>
 	    <form id="contact" method="post">
 			<h3>Upload new product</h3>
 			<fieldset>
@@ -71,7 +71,7 @@
 				<input class="form-control" placeholder="Product name" name="productName" type="text" required>
 			</fieldset>
 			<fieldset>
-				<input class="form-control" placeholder="Product code" name="productCode" type="text" required>
+				<input class="form-control" placeholder="Product status" name="productCode" type="text" required>
 			</fieldset>
 			<fieldset>
 				<input class="form-control" placeholder="Quantity" name="quantity" type="text" required>

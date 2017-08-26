@@ -1,5 +1,6 @@
 package com.jalagbe.app.controller;
 
+import com.jalagbe.app.action.CategoryAction;
 import com.jalagbe.app.model.CategoryModel;
 import com.jalagbe.app.service.CategoryService;
 import com.jalagbe.app.validator.CategoryValidator;
@@ -9,6 +10,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
+
+import javax.servlet.http.HttpServletRequest;
 
 /**
  * Created by tareq rahman on 8/18/2017.
@@ -22,7 +25,7 @@ public class CategoryController {
     private CategoryValidator categoryValidator;
 
     @Autowired
-    private CategoryService categoryService;
+    private CategoryAction categoryAction;
 
     @InitBinder
     protected void initBinder(WebDataBinder binder) {
@@ -48,8 +51,8 @@ public class CategoryController {
     }
 
     @RequestMapping(value = "/save", method = RequestMethod.POST)
-    public ResponseEntity<?> multiUploadFileModel(@ModelAttribute CategoryModel model) {
-
+    public ResponseEntity<?> saveNewCategory(@ModelAttribute CategoryModel categoryModel, HttpServletRequest request) {
+        categoryAction.execute(categoryModel, request);
         return new ResponseEntity("Successfully uploaded!", HttpStatus.OK);
     }
 
