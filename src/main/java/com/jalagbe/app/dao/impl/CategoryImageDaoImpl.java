@@ -1,6 +1,6 @@
 package com.jalagbe.app.dao.impl;
 
-import com.jalagbe.app.base.dao.impl.BaseDaoImpl;
+import com.jalagbe.app.base.dao.impl.JalagbeDaoImpl;
 import com.jalagbe.app.dao.CategoryImageDao;
 import com.jalagbe.app.entity.CategoryImage;
 import org.hibernate.SessionFactory;
@@ -11,7 +11,7 @@ import org.springframework.stereotype.Repository;
  */
 
 @Repository
-public class CategoryImageDaoImpl extends BaseDaoImpl<CategoryImage, Integer> implements CategoryImageDao {
+public class CategoryImageDaoImpl extends JalagbeDaoImpl<CategoryImage, Integer> implements CategoryImageDao {
 
     public CategoryImageDaoImpl(SessionFactory sessionFactory) {
         super(sessionFactory, CategoryImage.class);

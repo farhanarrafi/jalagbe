@@ -1,40 +1,27 @@
 package com.jalagbe.app.action;
 
+import com.jalagbe.app.base.service.JalagbeService;
 import com.jalagbe.app.constant.JalagbeConstant;
-import com.jalagbe.app.base.action.AbstractBaseAction;
-import com.jalagbe.app.base.action.BaseAction;
+import com.jalagbe.app.base.action.AbstractJalagbeAction;
+import com.jalagbe.app.base.action.JalagbeAction;
 import com.jalagbe.app.entity.Category;
 import com.jalagbe.app.entity.CategoryImage;
 import com.jalagbe.app.model.CategoryModel;
-import com.jalagbe.app.model.JalagbeResponse;
 import com.jalagbe.app.service.CategoryImageService;
-import com.jalagbe.app.service.CategoryService;
+import com.jalagbe.app.util.JalagbeUtil;
+import com.jalagbe.app.util.Mapper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
 
-import javax.servlet.http.HttpServletRequest;
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Arrays;
-import java.util.Date;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * Created by rahma on 8/21/2017.
  */
 
 @Component
-public class CategoryAction extends AbstractBaseAction implements BaseAction<CategoryModel>{
-
-    @Autowired
-    private CategoryService categoryService;
+public class CategoryAction extends AbstractJalagbeAction implements JalagbeAction<CategoryModel> {
 
     @Autowired
     private CategoryImageService categoryImageService;
@@ -50,38 +37,40 @@ public class CategoryAction extends AbstractBaseAction implements BaseAction<Cat
     }
 
     @Override
-    public boolean executeUpdate(CategoryModel categoryModel) {
+    public boolean executeUpdate(CategoryModel categoryModel, JalagbeService jalagbeService) {
         return false;
     }
 
     @Override
-    public boolean executeInsert(CategoryModel model) {
+    public boolean executeInsert(CategoryModel model, JalagbeService categoryService) throws Exception {
         boolean result = false;
-        JalagbeResponse response = new JalagbeResponse();
         Category category = new Category();
         category.setCategoryName(model.getCategoryName());
-        category.setParentId(model.getParentId());
         category.setCreatedOn(super.getDateTime());
         category.setUpdatedOn(super.getDateTime());
 
+        if(!"notSelected".equals(model.getParentId())) {
+            Category parentCategory = new Category();
+            parentCategory.setId(model.getParentId());
+            category.setParentId(parentCategory);
+        }
+
         try {
             if(categoryService.save(category)) {
-                List<MultipartFile> multipartFileList = Arrays.asList(model.getFiles());
-                for (MultipartFile file : multipartFileList) {
-                    String storeAbleImageName = getUniqueImageName();
-                    CategoryImage categoryImage = new CategoryImage();
-                    categoryImage.setFileName(storeAbleImageName);
-                    categoryImage.setCategoryId(category);
-                    categoryImage.setCreatedOn(super.getDateTime());
-                    categoryImage.setUpdatedOn(super.getDateTime());
+                MultipartFile multipartFile = model.getFiles();
+                String storeAbleImageName =  JalagbeUtil.getUniqueImageName();
+                CategoryImage categoryImage = new CategoryImage();
+                categoryImage.setFileName(storeAbleImageName);
+                categoryImage.setCategoryId(category);
+                categoryImage.setCreatedOn(super.getDateTime());
+                categoryImage.setUpdatedOn(super.getDateTime());
 
-                    if(categoryImageService.save(categoryImage)) {
-                        this.saveUploadedImages(file, category, storeAbleImageName);
-                        result = true;
-                    } else {
-                        result = false;
-                        //delete the category from DB
-                    }
+                if(categoryImageService.save(categoryImage)) {
+                    JalagbeUtil.saveUploadedImages(multipartFile, category, storeAbleImageName, JalagbeConstant.CATEGORY_IMAGE_FOLDER);
+                    result = true;
+                } else {
+                    result = false;
+                    //delete the category from DB
                 }
             }
         } catch (Exception e) {
@@ -92,36 +81,23 @@ public class CategoryAction extends AbstractBaseAction implements BaseAction<Cat
     }
 
     @Override
-    public boolean executeDelete(long id) {
+    public boolean executeDelete(long id, JalagbeService jalagbeService) {
         return false;
     }
 
     @Override
-    public Map<String, ?> execute() {
-        return null;
-    }
-
-    private void saveUploadedImages(MultipartFile file, Category category, String storeAbleImageName) {
-        try {
-            byte[] bytes = file.getBytes();
-            Path path = Paths.get(JalagbeConstant.CATEGORY_IMAGE_FOLDER  + storeAbleImageName);
-            Files.write(path, bytes);
-            CategoryImage categoryImage = new CategoryImage();
-            categoryImage.setFileName(storeAbleImageName);
-            categoryImage.setCategoryId(category);
-
-        } catch (IOException e) {
-            e.printStackTrace();
+    public Map<String, ?> execute(JalagbeService jalagbeService) throws Exception {
+        Map<String, Object> result = new HashMap<>();
+        List<CategoryModel> categoryModelList = new ArrayList<>();
+        List<Category> categoryList = jalagbeService.getAll();
+        CategoryModel categoryModel;
+        for (Category category : categoryList){
+            categoryModel = Mapper.from(category);
+            categoryModelList.add(categoryModel);
         }
-    }
-
-    private String getUniqueImageName(){
-        DateFormat dateFormat =new SimpleDateFormat("dd-MM-yy HH-mm-ss.SSS");
-        Date date = new Date();
-        String dateName =dateFormat.format(date) ;
-        String trimFirst  = dateName.replaceAll("[ :.+-]", "").trim();
-        String name = trimFirst +".jpg";
-        return  name;
+        result.put("categoryList", categoryModelList);
+        result.put("imageFolder", JalagbeConstant.CATEGORY_IMAGE_FOLDER);
+        return result;
     }
 
 }

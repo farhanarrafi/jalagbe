@@ -1,9 +1,10 @@
 package com.jalagbe.app.base.dao.impl;
 
 import java.io.Serializable;
+import java.lang.reflect.ParameterizedType;
 import java.util.List;
 
-import com.jalagbe.app.base.dao.BaseDao;
+import com.jalagbe.app.base.dao.JalagbeDao;
 import org.hibernate.Hibernate;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -16,16 +17,17 @@ import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 
 
-public class BaseDaoImpl<T, PK extends Serializable> extends HibernateTemplate  implements BaseDao<T, PK> {
-	//private final Logger logger = Logger.getLogger(BaseDaoImpl.class);
+public class JalagbeDaoImpl<T, PK extends Serializable> extends HibernateTemplate  implements JalagbeDao<T, PK> {
+	//private final Logger logger = Logger.getLogger(JalagbeDaoImpl.class);
 	private Transaction transaction = null;
 	private Class<T> classType;
 	private SessionFactory sessionFactory;
 	private Session session = null;
 
-    public BaseDaoImpl(SessionFactory sessionFactory, Class<T> classType) {
+    public JalagbeDaoImpl(SessionFactory sessionFactory, Class<T> classType) {
         super.setSessionFactory(sessionFactory);
-        this.classType = classType;
+		this.classType = (Class<T>) ((ParameterizedType) getClass().getGenericSuperclass())
+				.getActualTypeArguments()[0];
         this.sessionFactory = sessionFactory;
     }
 
@@ -72,17 +74,30 @@ public class BaseDaoImpl<T, PK extends Serializable> extends HibernateTemplate  
 
 	@Override
 	public List<T> getAll() {
-		try{
-			session = getCurrentSession();
-            CriteriaQuery<T> criteriaQuery = session.getCriteriaBuilder().createQuery(classType);
-			return session.createQuery(criteriaQuery).getResultList();
-		}catch (Exception ex){
-            ex.printStackTrace();
-        }finally{
-			destroyCurrentSession(session);
-		}
+    	session = getCurrentSession();
+		Transaction tx = session.beginTransaction();
+		@SuppressWarnings("unchecked")
+		List<T> result = (List<T>) session.createCriteria(classType).list();
+		tx.commit();
+		return result;
 
-		return null;
+//		CriteriaBuilder builder = session.getCriteriaBuilder();
+//		CriteriaQuery<classType> query = builder.createQuery(classType);
+//		Root<classType> variableRoot = query.from(classType);
+//		query.select(variableRoot);
+//
+//		return session.createQuery(query).getResultList();
+//		try{
+//			session = getCurrentSession();
+//            CriteriaQuery<T> criteriaQuery = session.getCriteriaBuilder().createQuery(classType);
+//			return session.createQuery(criteriaQuery).getResultList();
+//		}catch (Exception ex){
+//            ex.printStackTrace();
+//        }finally{
+//			destroyCurrentSession(session);
+//		}
+//
+//		return null;
 	}
 
 	@Override

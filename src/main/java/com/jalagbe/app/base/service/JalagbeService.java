@@ -6,7 +6,7 @@ import java.util.List;
 /**
  * Created by fsocity on 2/20/17.
  */
-public interface BaseService<T, PK extends Serializable> {
+public interface JalagbeService<T, PK extends Serializable> {
 
     boolean save(T object) throws Exception;
 

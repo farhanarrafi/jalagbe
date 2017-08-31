@@ -9,7 +9,7 @@ public class Product implements Serializable {
 
 	@Id
 	@Column(name = "ID")
-	@SequenceGenerator(name = "product_seq", sequenceName = "product_seq", allocationSize    = 1)
+	@SequenceGenerator(name = "product_seq", sequenceName = "product_seq", allocationSize  = 1)
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "product_seq")
 	private Long id;
 
@@ -23,7 +23,9 @@ public class Product implements Serializable {
     @JoinColumn(name = "CATEGORY_ID", nullable = false)
     private Category categoryId;
 
-    @Column(name = "PRODUCT_CODE", unique = true, nullable = false)
+    @Column(name = "PRODUCT_CODE", columnDefinition="INT(10) UNSIGNED ZEROFILL NOT NULL AUTO_INCREMENT UNIQUE", length=6)
+	@SequenceGenerator(name = "product_code_seq", sequenceName = "product_code_seq", allocationSize = 1)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "product_code_seq")
     private Integer productCode;
 
     @Column(name = "PRODUCT_NAME",  nullable = false)
@@ -35,7 +37,7 @@ public class Product implements Serializable {
     @Column(name = "ORIGINAL_PRICE",  nullable = false)
 	private Integer originalPrice;
 
-    @Column(name = "DISCOUNT_PRICE_",  nullable = false)
+    @Column(name = "DISCOUNT_PRICE_")
 	private Integer discountPrice;
 
     @Column(name = "FEATURE", nullable = false)

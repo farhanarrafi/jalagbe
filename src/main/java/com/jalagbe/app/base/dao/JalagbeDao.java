@@ -3,7 +3,7 @@ package com.jalagbe.app.base.dao;
 import java.io.Serializable;
 import java.util.List;
 
-public interface BaseDao<T, PK extends Serializable> {
+public interface JalagbeDao<T, PK extends Serializable> {
 
     boolean insert(T object) throws Exception;
 

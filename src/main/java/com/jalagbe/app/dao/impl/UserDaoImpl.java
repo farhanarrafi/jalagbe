@@ -1,13 +1,13 @@
 package com.jalagbe.app.dao.impl;
 
-import com.jalagbe.app.base.dao.impl.BaseDaoImpl;
+import com.jalagbe.app.base.dao.impl.JalagbeDaoImpl;
 import com.jalagbe.app.dao.UserDao;
 import com.jalagbe.app.entity.User;
 import org.hibernate.SessionFactory;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public class UserDaoImpl extends BaseDaoImpl<User, Integer> implements UserDao {
+public class UserDaoImpl extends JalagbeDaoImpl<User, Integer> implements UserDao {
 	
 	public UserDaoImpl(SessionFactory sessionFactory) {
 		 super(sessionFactory, User.class);

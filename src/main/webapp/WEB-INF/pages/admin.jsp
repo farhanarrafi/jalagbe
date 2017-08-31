@@ -19,7 +19,9 @@
 		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 		<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
 
+
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+        <script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.11.1/jquery.validate.min.js"></script>
 
 		<script type="text/javascript"
 				src="<c:url value='/resources/js/bootstrap-imageupload.js'/>"></script>
@@ -34,7 +36,7 @@
 
 		<script>
             function load_category_list() {
-                $('#main-body-admin').load('');
+                $('#main-body-admin').load('/category');
             }
 
             function load_upload_category() {
@@ -144,8 +146,8 @@
 			</div>
 			
 			<div class="col-xs-9">
-				<div id="main-body-admin">					
-					
+				<div id="main-body-admin">
+
 				</div>
 			</div>
 		</div>

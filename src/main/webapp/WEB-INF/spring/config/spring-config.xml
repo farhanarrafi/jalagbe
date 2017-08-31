@@ -45,5 +45,6 @@ http://www.springframework.org/schema/context/spring-context-4.3.xsd http://www.
 
     <mvc:resources mapping="/resources/**" location="/resources/"
                    cache-period="31556926"/>
+
     <mvc:annotation-driven />
 </beans>

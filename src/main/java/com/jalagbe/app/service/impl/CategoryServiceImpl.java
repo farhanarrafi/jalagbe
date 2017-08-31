@@ -35,8 +35,8 @@ public class CategoryServiceImpl implements CategoryService {
 	}
 
 	@Override
-	public List<Category> getAll() {
-		return null;
+	public List<Category> getAll() throws Exception {
+		return categoryDao.getAll();
 	}
 
 	@Override

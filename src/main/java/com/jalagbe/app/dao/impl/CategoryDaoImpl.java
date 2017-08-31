@@ -1,6 +1,6 @@
 package com.jalagbe.app.dao.impl;
 
-import com.jalagbe.app.base.dao.impl.BaseDaoImpl;
+import com.jalagbe.app.base.dao.impl.JalagbeDaoImpl;
 import com.jalagbe.app.dao.CategoryDao;
 import com.jalagbe.app.entity.Category;
 import org.hibernate.SessionFactory;
@@ -9,7 +9,7 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public class CategoryDaoImpl extends BaseDaoImpl<Category, Integer> implements CategoryDao {
+public class CategoryDaoImpl extends JalagbeDaoImpl<Category, Integer> implements CategoryDao {
 
 	public CategoryDaoImpl(SessionFactory sessionFactory){
 			super(sessionFactory, Category.class);

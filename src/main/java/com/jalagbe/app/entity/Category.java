@@ -1,7 +1,12 @@
 package com.jalagbe.app.entity;
 
 
+import org.hibernate.annotations.*;
+import org.hibernate.annotations.CascadeType;
+
 import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.Table;
 import java.io.Serializable;
 
 @Entity
@@ -31,6 +36,11 @@ public class Category implements Serializable {
     @JoinColumn(name = "PARENT_ID")
 	private Category parentId;
 
+    @OneToOne(fetch = FetchType.LAZY, mappedBy = "categoryId")
+    @Cascade(CascadeType.ALL)
+    @Fetch(FetchMode.SELECT)
+    @BatchSize(size = 10)
+    private CategoryImage categoryImage;
 
     /**
      * contractors
@@ -89,6 +99,12 @@ public class Category implements Serializable {
 	public void setUpdatedOn(String updatedOn) {
 		this.updatedOn = updatedOn;
 	}
-	
-	
+
+    public CategoryImage getCategoryImage() {
+        return categoryImage;
+    }
+
+    public void setCategoryImage(CategoryImage categoryImage) {
+        this.categoryImage = categoryImage;
+    }
 }
